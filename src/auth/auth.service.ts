@@ -13,7 +13,6 @@ export class AuthService {
     }
 
     async validateUser(username: string, password: string) {
-        console.log(username, password)
         if (
             this.testUser.username == username &&
             this.testUser?.password === password
