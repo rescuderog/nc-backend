@@ -1,8 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/db/prisma.service";
+import { PrismaService } from "src/prisma/prisma.service";
 import { Cliente } from "@prisma/client";
 import { CreateUserDto } from "src/db/dto/create-user.dto";
 import * as bcrypt from "bcrypt";
+import { plainToClass } from "class-transformer";
+import { SelectUserDto } from "src/db/dto/select-user.dto";
 
 @Injectable()
 export class UserService {
@@ -18,6 +20,15 @@ export class UserService {
                 password: hashedPassword
             }
         });
+    }
+
+    async getAllUsers(): Promise<SelectUserDto[]> {
+        const userList = this.prisma.cliente.findMany();
+        return (await userList).map(
+            user => {
+                return plainToClass(SelectUserDto, user, { excludeExtraneousValues: true })
+            }
+        )
     }
 
     async hashPasword(password): Promise<string> {
