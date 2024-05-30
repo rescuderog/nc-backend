@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DbModule } from './db/db.module';
 import { ProductModule } from './product/product.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PrismaModule } from './prisma/prisma.module';
     DbModule,
     PrismaModule,
     ProductModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,6 +18,7 @@ model Cliente {
   email    String  @unique
   nombre   String?
   password String
+  cartItems CartItem[]
 }
 
 model Producto {
@@ -25,4 +26,14 @@ model Producto {
   nombre    String
   precio    Int
   published Boolean? @default(false)
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id          Int      @id @default(autoincrement())
+  clientId    Int      
+  productId   Int      
+  quantity    Int      
+  client      Cliente  @relation(fields: [clientId], references: [id])
+  product     Producto @relation(fields: [productId], references: [id])
 }
