@@ -34,4 +34,24 @@ export class CartService {
       },
     });
   }
+
+  async clearCartByClientId(clientId: number): Promise<void> {
+    await this.prisma.cartItem.deleteMany({
+      where: {
+        clientId: clientId,
+      },
+    });
+  }
+
+  async deleteProductFromCart(
+    productId: number,
+    clientId: number,
+  ): Promise<void> {
+    await this.prisma.cartItem.deleteMany({
+      where: {
+        productId: productId,
+        clientId: clientId,
+      },
+    });
+  }
 }

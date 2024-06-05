@@ -38,4 +38,25 @@ export class CartController {
     const numericItemCarId = parseInt(itemCarId, 10);
     return this.cartService.deleteCartItem(numericItemCarId);
   }
+
+  @Delete('clear/:clientId')
+  async clearCartByClientId(
+    @Param('clientId') clientId: string,
+  ): Promise<void> {
+    const numericClientId = parseInt(clientId, 10);
+    await this.cartService.clearCartByClientId(numericClientId);
+  }
+
+  @Delete('product/:productId/client/:clientId')
+  async deleteProductFromCart(
+    @Param('productId') productId: string,
+    @Param('clientId') clientId: string,
+  ): Promise<void> {
+    const numericProductId = parseInt(productId, 10);
+    const numericClientId = parseInt(clientId, 10);
+    await this.cartService.deleteProductFromCart(
+      numericProductId,
+      numericClientId,
+    );
+  }
 }
