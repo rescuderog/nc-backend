@@ -14,26 +14,50 @@ datasource db {
 }
 
 model Cliente {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  nombre   String?
-  password String
-  cartItems CartItem[]
+  id               Int                @id @default(autoincrement())
+  email            String             @unique
+  nombre           String?
+  password         String
+  cartItems        CartItem[]
+  RestaurantRating RestaurantRating[]
 }
 
 model Producto {
-  id        Int      @id @default(autoincrement())
-  nombre    String
-  precio    Int
-  published Boolean? @default(false)
-  cartItems CartItem[]
+  id           Int        @id @default(autoincrement())
+  nombre       String
+  precio       Int
+  published    Boolean?   @default(false)
+  cartItems    CartItem[]
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 }
 
 model CartItem {
-  id          Int      @id @default(autoincrement())
-  clientId    Int      
-  productId   Int      
-  quantity    Int      
-  client      Cliente  @relation(fields: [clientId], references: [id])
-  product     Producto @relation(fields: [productId], references: [id])
+  id        Int      @id @default(autoincrement())
+  clientId  Int
+  productId Int
+  quantity  Int
+  client    Cliente  @relation(fields: [clientId], references: [id])
+  product   Producto @relation(fields: [productId], references: [id])
+}
+
+model Restaurant {
+  id               Int                @id @default(autoincrement())
+  nombre           String
+  direccion        String
+  telefono         String
+  apertura         String
+  clausura         String
+  producto         Producto[]
+  RestaurantRating RestaurantRating[]
+}
+
+model RestaurantRating {
+  id           Int        @id @default(autoincrement())
+  clientId     Int
+  restaurantId Int
+  rating       Int
+  mensaje      String
+  client       Cliente    @relation(fields: [clientId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 }

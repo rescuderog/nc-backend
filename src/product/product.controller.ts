@@ -13,7 +13,7 @@ import { Producto } from '@prisma/client';
 
 @Controller('products')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService) { }
 
   @Get()
   async getAllProducts() {
@@ -28,7 +28,7 @@ export class ProductController {
   @Get(':id')
   async getProductById(@Param('id') id: string) {
     const product = await this.productService.getProductById(Number(id));
-    if (!product) throw new NotFoundException('Product does not exit');
+    if (!product) throw new NotFoundException('Product does not exists');
     return product;
   }
 
@@ -37,7 +37,7 @@ export class ProductController {
     try {
       return await this.productService.deleteProduct(Number(id));
     } catch (error) {
-      throw new NotFoundException('Product does not exit');
+      throw new NotFoundException('Product does not exists');
     }
   }
 
@@ -46,7 +46,7 @@ export class ProductController {
     try {
       return await this.productService.updateProduct(Number(id), data);
     } catch (error) {
-      throw new NotFoundException('Product does not exit');
+      throw new NotFoundException('Product does not exists');
     }
   }
 }
