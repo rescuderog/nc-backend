@@ -31,7 +31,8 @@ model Producto {
   cartItems    CartItem[]
   restaurantId Int?
   restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
-  category     Category[]
+  category     Category    @relation(fields: [categoryId], references: [id])
+  categoryId   Int
 }
 
 model CartItem {
@@ -65,8 +66,7 @@ model RestaurantRating {
 }
 
 model Category {
-  id         Int       @id @default(autoincrement())
-  nombre     String
-  Producto   Producto? @relation(fields: [productoId], references: [id])
-  productoId Int?
+  id       Int        @id @default(autoincrement())
+  nombre   String
+  producto Producto[]
 }
