@@ -10,12 +10,18 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CartModule } from './cart/cart.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { CategoryModule } from './category/category.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
     AuthModule,
     UserModule,
