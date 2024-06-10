@@ -7,13 +7,17 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Producto } from '@prisma/client';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { File } from 'multer';
 
 @Controller('products')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
 
   @Get()
   async getAllProducts() {
@@ -21,8 +25,10 @@ export class ProductController {
   }
 
   @Post()
-  async createProduct(@Body() data: Producto) {
-    return this.productService.createProduct(data);
+  @UseInterceptors(FileInterceptor('image'))
+  async createProduct(@Body() data: any, @UploadedFile() image: File) {
+    console.log(image);
+    return this.productService.createProduct(data, image);
   }
 
   @Get(':id')

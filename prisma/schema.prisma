@@ -26,10 +26,11 @@ model Producto {
   id           Int        @id @default(autoincrement())
   nombre       String
   precio       Int
+  imagen       String
   published    Boolean?   @default(false)
   cartItems    CartItem[]
-  restaurantId Int
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId Int?
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
 }
 
 model CartItem {
