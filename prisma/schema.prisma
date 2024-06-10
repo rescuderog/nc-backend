@@ -23,14 +23,15 @@ model Cliente {
 }
 
 model Producto {
-  id           Int        @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   nombre       String
   precio       Int
   imagen       String
-  published    Boolean?   @default(false)
+  published    Boolean?    @default(false)
   cartItems    CartItem[]
   restaurantId Int?
   restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  category     Category[]
 }
 
 model CartItem {
@@ -61,4 +62,11 @@ model RestaurantRating {
   mensaje      String
   client       Cliente    @relation(fields: [clientId], references: [id])
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+}
+
+model Category {
+  id         Int       @id @default(autoincrement())
+  nombre     String
+  Producto   Producto? @relation(fields: [productoId], references: [id])
+  productoId Int?
 }

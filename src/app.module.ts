@@ -9,6 +9,7 @@ import { ProductModule } from './product/product.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CartModule } from './cart/cart.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RestaurantModule } from './restaurant/restaurant.module';
     ProductModule,
     CartModule,
     RestaurantModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
